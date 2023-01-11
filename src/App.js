@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import Profile from "./components/Profile";
+import MainPage from "./components/MainPage";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  function loginHandler(userName, password) {
+    console.log("loginHandler is running");
+    console.log("username: ", userName);
+    console.log("password: ", password);
+    if (userName === "yunchir" && password === "asd") {
+      setIsLoggedIn(true);
+    } else {
+      console.error("Wrong passwoed or username");
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+      <div className="App">
+        {isLoggedIn ? (
+          <Profile logout={setIsLoggedIn} />
+        ) : (
+          <MainPage setLogin={loginHandler} />
+        )}
+      </div>
     </div>
   );
 }
